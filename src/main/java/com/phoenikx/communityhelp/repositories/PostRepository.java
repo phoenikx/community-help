@@ -7,6 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface HelpRequestRepository extends MongoRepository<Post, String> {
+public interface PostRepository extends MongoRepository<Post, String> {
     List<Post> findByLocationNear(Point p, Distance d);
 }

@@ -12,4 +12,7 @@ public class OTP extends BaseModel<String>{
     private String phoneNumber;
     private String otpCode;
     private String requestId;
+    private long expirationTime;
+    private int numTriesAllowed;
+    private int numAttemptsDone;
 }

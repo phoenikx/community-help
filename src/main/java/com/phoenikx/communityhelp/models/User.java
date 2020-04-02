@@ -16,6 +16,7 @@ public class User extends BaseModel<String> {
     @Id
     private String id;
     private String name;
+    private String userId;
     @Indexed(unique = true)
     private String phoneNumber;
     private GeoJsonPoint homeLocation;

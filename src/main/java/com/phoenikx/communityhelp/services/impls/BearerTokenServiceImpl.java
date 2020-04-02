@@ -43,7 +43,7 @@ public class BearerTokenServiceImpl implements BearerTokenService {
     }
 
     @Override
-    public String verifyToken(String token) {
+    public String verifyTokenAndGetSubject(String token) {
         Claims claims;
         try {
             claims = Jwts.parser()

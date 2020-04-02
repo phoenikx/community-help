@@ -6,11 +6,16 @@ import com.phoenikx.communityhelp.services.apis.OTPService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class OTPServiceImpl implements OTPService {
+    private static long VALIDITY_DURATION = TimeUnit.MINUTES.toMillis(15);
+    private static int ATTEMPTS_ALLOWED = 5;
+
     @Autowired
     OTPRepository otpRepository;
 
@@ -30,6 +35,9 @@ public class OTPServiceImpl implements OTPService {
                 .otpCode(generateRandomCode(length))
                 .phoneNumber(phoneNumber)
                 .requestId(generateRequestId())
+                .expirationTime(System.currentTimeMillis() + VALIDITY_DURATION)
+                .numTriesAllowed(ATTEMPTS_ALLOWED)
+                .numAttemptsDone(0)
                 .build();
         return otpRepository.save(otp);
     }
@@ -37,9 +45,18 @@ public class OTPServiceImpl implements OTPService {
     @Override
     public Optional<OTP> verifyOTP(String requestId, String otpCode) {
         Optional<OTP> otpOptional = otpRepository.findByRequestId(requestId);
-        if (otpOptional.isPresent() && otpOptional.get().getOtpCode().equals(otpCode))
-            return otpOptional;
 
-        return Optional.empty();
+        if (!otpOptional.isPresent()) {
+            return Optional.empty();
+        }
+
+        OTP otp = otpOptional.get();
+        if (System.currentTimeMillis() > otp.getExpirationTime()
+                || otp.getNumAttemptsDone() >= otp.getNumTriesAllowed()) {
+            return Optional.empty();
+        }
+        otp.setNumAttemptsDone(otp.getNumAttemptsDone()+1);
+        otpRepository.save(otp);
+        return otpOptional;
     }
 }

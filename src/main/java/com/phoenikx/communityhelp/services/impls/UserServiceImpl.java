@@ -10,6 +10,7 @@ import com.phoenikx.communityhelp.services.apis.BearerTokenService;
 import com.phoenikx.communityhelp.services.apis.OTPService;
 import com.phoenikx.communityhelp.services.apis.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
     private User createNewUser(String phoneNumber, String userName) {
         return User.builder()
                 .name(userName)
+                .userId(phoneNumber)
                 .phoneNumber(phoneNumber)
                 .build();
     }
@@ -58,5 +60,10 @@ public class UserServiceImpl implements UserService {
                 .token(bearerToken)
                 .build();
 
+    }
+
+    @Override
+    public Optional<User> getUserById(String userId) {
+        return userRepository.findById(userId);
     }
 }
