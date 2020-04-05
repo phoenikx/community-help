@@ -3,6 +3,7 @@ package com.phoenikx.communityhelp.businessobjects;
 import com.phoenikx.communityhelp.models.Post;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
 @Data
 @Builder
@@ -11,8 +12,7 @@ public class PostBO {
     private String title;
     private String description;
     private boolean willingToPay;
-    private double latitude;
-    private double longitude;
+    private GeoJsonPoint location;
     private String locationDisplayName;
     private String fullAddress;
     private String geoHash;
@@ -23,8 +23,7 @@ public class PostBO {
                 .description(post.getDescription())
                 .fullAddress(post.getFullAddress())
                 .geoHash(post.getGeoHash())
-                .latitude(post.getLatitude())
-                .longitude(post.getLongitude())
+                .location(post.getLocation())
                 .locationDisplayName(post.getLocationDisplayName())
                 .title(post.getTitle())
                 .willingToPay(post.isWillingToPay())

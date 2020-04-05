@@ -9,11 +9,14 @@ import com.phoenikx.communityhelp.services.apis.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PostServiceImpl implements PostService {
     @Autowired private UserContextStore userContextStore;
     @Autowired private PostRepository postRepository;
@@ -29,8 +32,7 @@ public class PostServiceImpl implements PostService {
                 .description(description)
                 .fullAddress(fullAddress)
                 .geoHash(geoHash)
-                .latitude(latitude)
-                .longitude(longitude)
+                .location(new GeoJsonPoint(latitude, longitude))
                 .locationDisplayName(locationDisplayName)
                 .willingToPay(willingToPay)
                 .build();
