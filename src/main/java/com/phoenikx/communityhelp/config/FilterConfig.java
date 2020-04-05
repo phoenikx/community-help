@@ -23,7 +23,7 @@ public class FilterConfig {
     public FilterRegistrationBean userFilterRegistration() {
         FilterRegistrationBean result = new FilterRegistrationBean();
         result.setFilter(this.userContextFilter());
-        result.setUrlPatterns(Lists.newArrayList("/api/*"));
+        result.setUrlPatterns(Lists.newArrayList("/api/posts/*"));
         result.setName("User context Filter");
         result.setOrder(1);
         return result;
