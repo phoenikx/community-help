@@ -5,6 +5,7 @@ import com.phoenikx.communityhelp.models.Post;
 import com.phoenikx.communityhelp.models.User;
 import com.phoenikx.communityhelp.repositories.PostRepository;
 import com.phoenikx.communityhelp.services.apis.PostService;
+import com.phoenikx.communityhelp.services.apis.AuthService;
 import com.phoenikx.communityhelp.services.apis.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class PostServiceImpl implements PostService {
     @Autowired private UserContextStore userContextStore;
     @Autowired private PostRepository postRepository;
+    @Autowired private AuthService authService;
     @Autowired private UserService userService;
 
     private static final int DISTANCE = 1000;
@@ -46,7 +48,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getPostsNearCurrentUser(int pageNum, int pageSize) {
         String userId = userContextStore.getUserId();
-        Optional<User> userOptional = userService.getUserById(userId);
+        Optional<User> userOptional = userService.findByUserId(userId);
         if (userOptional.isPresent()) {
             return postRepository.findByLocationNear(new Point(userOptional.get().getHomeLocation()),
                     new Distance(DISTANCE));

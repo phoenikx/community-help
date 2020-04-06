@@ -1,45 +1,35 @@
 package com.phoenikx.communityhelp.controllers;
 
-import com.phoenikx.communityhelp.businessobjects.BearerTokenBO;
-import com.phoenikx.communityhelp.businessobjects.OTPBO;
+import com.phoenikx.communityhelp.businessobjects.UserBO;
+import com.phoenikx.communityhelp.config.UserContextStore;
 import com.phoenikx.communityhelp.exceptions.InvalidRequestException;
-import com.phoenikx.communityhelp.models.OTP;
-import com.phoenikx.communityhelp.reqresps.LoginInitiateRequest;
-import com.phoenikx.communityhelp.reqresps.LoginVerifyRequest;
+import com.phoenikx.communityhelp.models.User;
+import com.phoenikx.communityhelp.reqresps.UserUpdateRequest;
 import com.phoenikx.communityhelp.services.apis.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.regex.Pattern;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "users", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class UserController {
-    Pattern pattern = Pattern.compile("^[6-9]\\d{9}$");
     @Autowired private UserService userService;
+    @Autowired private UserContextStore userContextStore;
 
-    private void validatePhoneNumber(String phoneNumber) {
-        if (!pattern.matcher(phoneNumber).matches())
-            throw new InvalidRequestException("Invalid phone number format.");
-    }
-
-    @PostMapping(path = "/login")
-    public OTPBO initiateLogin(@RequestBody @Valid LoginInitiateRequest request) {
-        validatePhoneNumber(request.getPhoneNumber());
-        OTP otp = userService.initiateLogin(request.getPhoneNumber(), request.getOtpLength());
-        log.info("OTP: {}", otp);
-        return OTPBO.fromOTP(otp);
-    }
-
-    @PostMapping(path = "/login/verify")
-    public BearerTokenBO verifyLogin(@RequestBody @Valid LoginVerifyRequest request) {
-        return userService.verifyLogin(request.getRequestId(), request.getOtpCode());
+    @PutMapping
+    public UserBO updateUser(@RequestBody UserUpdateRequest request) {
+        Optional<User> userOptional = userService.updateUser(userContextStore.getUserId(),
+                request.getHomeLocation(), request.getName());
+        if (!userOptional.isPresent()) {
+            throw new InvalidRequestException("No such user found.");
+        }
+        return UserBO.fromUser(userOptional.get());
     }
 }
