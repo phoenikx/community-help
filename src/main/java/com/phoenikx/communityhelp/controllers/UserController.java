@@ -7,6 +7,7 @@ import com.phoenikx.communityhelp.models.OTP;
 import com.phoenikx.communityhelp.reqresps.LoginInitiateRequest;
 import com.phoenikx.communityhelp.reqresps.LoginVerifyRequest;
 import com.phoenikx.communityhelp.services.apis.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping(path = "users", produces = MediaType.APPLICATION_JSON_VALUE)
+@Slf4j
 public class UserController {
     Pattern pattern = Pattern.compile("^[6-9]\\d{9}$");
     @Autowired private UserService userService;
@@ -32,6 +34,7 @@ public class UserController {
     public OTPBO initiateLogin(@RequestBody @Valid LoginInitiateRequest request) {
         validatePhoneNumber(request.getPhoneNumber());
         OTP otp = userService.initiateLogin(request.getPhoneNumber(), request.getOtpLength());
+        log.info("OTP: {}", otp);
         return OTPBO.fromOTP(otp);
     }
 

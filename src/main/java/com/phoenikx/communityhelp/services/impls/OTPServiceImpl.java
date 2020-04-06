@@ -52,7 +52,7 @@ public class OTPServiceImpl implements OTPService {
 
         OTP otp = otpOptional.get();
         if (System.currentTimeMillis() > otp.getExpirationTime()
-                || otp.getNumAttemptsDone() >= otp.getNumTriesAllowed()) {
+                || otp.getNumAttemptsDone() >= otp.getNumTriesAllowed() || !otp.getOtpCode().equals(otpCode)) {
             return Optional.empty();
         }
         otp.setNumAttemptsDone(otp.getNumAttemptsDone()+1);
