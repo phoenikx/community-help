@@ -4,6 +4,7 @@ import com.phoenikx.communityhelp.models.User;
 import com.phoenikx.communityhelp.repositories.UserRepository;
 import com.phoenikx.communityhelp.services.apis.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +31,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> updateUser(String phoneNumber, GeoJsonPoint geoJsonPoint, String name) {
+    public Optional<User> updateUser(String phoneNumber, Point location, String name) {
         Optional<User> userOptional = findByUserId(phoneNumber);
         if (!userOptional.isPresent())
             return Optional.empty();
 
         User user = userOptional.get();
-        user.setHomeLocation(geoJsonPoint);
+        user.setHomeLocation(new GeoJsonPoint(location.getX(), location.getY()));
         user.setName(name);
         userRepository.save(user);
 
