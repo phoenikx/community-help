@@ -7,7 +7,6 @@ public class PostCreationRequest {
     private String title;
     private String description;
     private boolean willingToPay;
-    private String posterId;
     private double latitude;
     private double longitude;
     private String locationDisplayName;
