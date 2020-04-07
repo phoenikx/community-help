@@ -4,6 +4,15 @@ spring:
     mongodb:
       uri: "mongodb://localhost:27017/community_help"
 
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG
 server:
   port: 8085
 
