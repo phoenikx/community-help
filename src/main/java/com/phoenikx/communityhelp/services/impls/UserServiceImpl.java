@@ -31,8 +31,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> updateUser(String phoneNumber, Point location, String name) {
-        Optional<User> userOptional = findByUserId(phoneNumber);
+    public Optional<User> updateUser(String userId, Point location, String name) {
+        Optional<User> userOptional = findByUserId(userId);
         if (!userOptional.isPresent())
             return Optional.empty();
 

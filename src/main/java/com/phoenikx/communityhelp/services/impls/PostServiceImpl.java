@@ -56,4 +56,9 @@ public class PostServiceImpl implements PostService {
         return new ArrayList<>();
     }
 
+    @Override
+    public Optional<Post> getPost(String postId) {
+        return postRepository.findById(postId);
+    }
+
 }

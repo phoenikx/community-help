@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.Date;
 
@@ -16,11 +17,13 @@ public class BaseModel<U> {
     private U createdBy;
 
     @CreatedDate
+    @Indexed
     private Date createdDate;
 
     @LastModifiedBy
     private U lastModifiedBy;
 
     @LastModifiedDate
+    @Indexed
     private Date lastModifiedDate;
 }
