@@ -3,6 +3,7 @@ package com.phoenikx.communityhelp.config;
 import com.phoenikx.communityhelp.services.apis.BearerTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,10 @@ public class UserContextFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+        if (StringUtils.isEmpty(request.getHeader(AUTHORIZATION_HEADER))) {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            return;
+        }
         Optional<String> tokenOptional = getAuthorizationToken(request.getHeader(AUTHORIZATION_HEADER));
         if (!tokenOptional.isPresent()) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
