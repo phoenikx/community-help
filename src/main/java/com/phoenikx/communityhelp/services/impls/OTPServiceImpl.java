@@ -6,7 +6,6 @@ import com.phoenikx.communityhelp.services.apis.OTPService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
