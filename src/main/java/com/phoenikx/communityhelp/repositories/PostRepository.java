@@ -1,6 +1,7 @@
 package com.phoenikx.communityhelp.repositories;
 
 import com.phoenikx.communityhelp.models.Post;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -8,5 +9,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface PostRepository extends MongoRepository<Post, String> {
-    List<Post> findByLocationNear(Point p, Distance d);
+    List<Post> findByLocationNearAndPosterIdNot(Point p, String posterId, Distance d, Pageable pageable);
 }

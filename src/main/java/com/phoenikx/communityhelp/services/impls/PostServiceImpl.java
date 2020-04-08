@@ -8,6 +8,7 @@ import com.phoenikx.communityhelp.services.apis.AuthService;
 import com.phoenikx.communityhelp.services.apis.PostService;
 import com.phoenikx.communityhelp.services.apis.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
@@ -23,8 +24,6 @@ public class PostServiceImpl implements PostService {
     @Autowired private PostRepository postRepository;
     @Autowired private AuthService authService;
     @Autowired private UserService userService;
-
-    private static final int DISTANCE = 1000;
 
     @Override
     public Post createPost(String title, String description, String fullAddress, String geoHash, double latitude,
@@ -46,12 +45,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostsNearCurrentUser(int pageNum, int pageSize) {
+    public List<Post> getPostsNearCurrentUser(int pageNum, int pageSize, int distance) {
         String userId = userContextStore.getUserId();
         Optional<User> userOptional = userService.findByUserId(userId);
         if (userOptional.isPresent()) {
-            return postRepository.findByLocationNear(new Point(userOptional.get().getHomeLocation()),
-                    new Distance(DISTANCE));
+            return postRepository.findByLocationNearAndPosterIdNot(
+                    new Point(userOptional.get().getHomeLocation()), userId , new Distance(distance),
+                    PageRequest.of(pageNum, pageSize));
         }
         return new ArrayList<>();
     }
