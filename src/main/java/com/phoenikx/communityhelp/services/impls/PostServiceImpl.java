@@ -10,6 +10,8 @@ import com.phoenikx.communityhelp.services.apis.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metric;
+import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.stereotype.Service;
@@ -33,7 +35,7 @@ public class PostServiceImpl implements PostService {
                 .description(description)
                 .fullAddress(fullAddress)
                 .geoHash(geoHash)
-                .location(new GeoJsonPoint(latitude, longitude))
+                .location(new GeoJsonPoint(longitude, latitude))
                 .locationDisplayName(locationDisplayName)
                 .willingToPay(willingToPay)
                 .build();
@@ -51,11 +53,11 @@ public class PostServiceImpl implements PostService {
         if (userOptional.isPresent()) {
             if (includeOwn) {
                 return postRepository.findByLocationNear(
-                        new Point(userOptional.get().getHomeLocation()), new Distance(distance),
+                        new Point(userOptional.get().getHomeLocation()), new Distance(distance, Metrics.KILOMETERS),
                         PageRequest.of(pageNum, pageSize));
             }
-            return postRepository.findByLocationNearAndPosterIdNot(new Point(userOptional.get().getHomeLocation()), userId,
-                    new Distance(distance), PageRequest.of(pageNum, pageSize));
+            return postRepository.findByLocationNearAndPosterIdNot(new Point(userOptional.get().getHomeLocation()),
+                    userId, new Distance(distance, Metrics.KILOMETERS), PageRequest.of(pageNum, pageSize));
         }
         return new ArrayList<>();
     }
