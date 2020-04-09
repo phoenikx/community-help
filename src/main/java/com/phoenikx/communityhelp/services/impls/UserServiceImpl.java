@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
         User user = userOptional.get();
         user.setHomeLocation(new GeoJsonPoint(location.getX(), location.getY()));
         user.setName(name);
+        user.setDetailsUpdated(true);
         userRepository.save(user);
 
         return Optional.of(user);
