@@ -36,6 +36,13 @@ public class PostController {
         return posts.stream().map(PostBO::fromPost).collect(Collectors.toList());
     }
 
+    @GetMapping("/me")
+    public List<PostBO> getPostsOfLoggedInUser(@RequestParam("pageNo") int pageNum,
+                                               @RequestParam("pageSize") int pageSize) {
+        List<Post> posts = postService.getPostsOfLoggedInUser(pageNum, pageSize);
+        return posts.stream().map(PostBO::fromPost).collect(Collectors.toList());
+    }
+
     @GetMapping("{postId}/help-offers")
     public List<HelpOfferBO> getHelpOffersForPost(@PathVariable("postId") String postId) {
         List<HelpOffer> helpOffers = helpOfferService.getHelpOffersForPost(postId);

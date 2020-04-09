@@ -12,4 +12,6 @@ public interface PostService {
     List<Post> getPostsNearCurrentUser(int pageNum, int pageSize, int distance, boolean includeOwn);
 
     Optional<Post> getPost(String postId);
+
+    List<Post> getPostsOfLoggedInUser(int pageNum, int pageSize);
 }

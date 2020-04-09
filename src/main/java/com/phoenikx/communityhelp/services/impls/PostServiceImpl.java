@@ -9,8 +9,8 @@ import com.phoenikx.communityhelp.services.apis.PostService;
 import com.phoenikx.communityhelp.services.apis.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Metric;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
@@ -65,6 +65,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public Optional<Post> getPost(String postId) {
         return postRepository.findById(postId);
+    }
+
+    @Override
+    public List<Post> getPostsOfLoggedInUser(int pageNum, int pageSize) {
+        return postRepository.findByPosterId(userContextStore.getUserId(),
+                PageRequest.of(pageNum, pageSize, Sort.by(Sort.Direction.DESC,"createdAt")));
     }
 
 }
