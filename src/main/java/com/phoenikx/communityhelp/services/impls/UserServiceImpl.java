@@ -16,11 +16,12 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User createNewUser(String phoneNumber, String userName) {
+    public User createNewUser(String phoneNumber, String userName, Point homeLocation) {
         User user = User.builder()
                 .name(userName)
                 .userId(phoneNumber)
                 .phoneNumber(phoneNumber)
+                .homeLocation(new GeoJsonPoint(homeLocation.getX(), homeLocation.getY()))
                 .build();
         return userRepository.save(user);
     }

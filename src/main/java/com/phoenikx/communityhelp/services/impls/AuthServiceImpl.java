@@ -9,6 +9,7 @@ import com.phoenikx.communityhelp.services.apis.BearerTokenService;
 import com.phoenikx.communityhelp.services.apis.OTPService;
 import com.phoenikx.communityhelp.services.apis.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,6 +20,7 @@ public class AuthServiceImpl implements AuthService {
     @Autowired private BearerTokenService bearerTokenService;
     @Autowired private UserService userService;
     private static final String NEW_USER_NAME = "User";
+    private static final Point DEFAULT_LOCATION = new Point(12.9716,77.5946);
 
 
     @Override
@@ -35,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
         String phoneNumber = otpOptional.get().getPhoneNumber();
         Optional<User> userOptional = userService.findByUserId(phoneNumber);
         if (!userOptional.isPresent()) {
-            User user = userService.createNewUser(phoneNumber, NEW_USER_NAME);
+            User user = userService.createNewUser(phoneNumber, NEW_USER_NAME, DEFAULT_LOCATION);
             String bearerToken = bearerTokenService.generateToken(user.getPhoneNumber(), user.getUserId());
             return BearerTokenBO.builder()
                     .newUser(true)
