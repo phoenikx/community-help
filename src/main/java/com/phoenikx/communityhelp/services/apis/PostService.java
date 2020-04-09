@@ -9,7 +9,7 @@ public interface PostService {
     Post createPost(String title, String description, String fullAddress, String geoHash,
                     double latitude, double longitude, String locationDisplayName, boolean willingToPay);
 
-    List<Post> getPostsNearCurrentUser(int pageNum, int pageSize, int distance);
+    List<Post> getPostsNearCurrentUser(int pageNum, int pageSize, int distance, boolean includeOwn);
 
     Optional<Post> getPost(String postId);
 }

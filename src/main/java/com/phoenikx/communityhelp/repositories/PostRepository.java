@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface PostRepository extends MongoRepository<Post, String> {
     List<Post> findByLocationNearAndPosterIdNot(Point p, String posterId, Distance d, Pageable pageable);
+
+    List<Post> findByLocationNear(Point point, Distance distance, Pageable pageable);
 }

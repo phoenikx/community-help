@@ -30,8 +30,9 @@ public class PostController {
 
     @GetMapping
     public List<PostBO> getPostsNearUser(@RequestParam("pageNo") int pageNum, @RequestParam("pageSize") int pageSize,
-                                         @RequestParam("radius") int radius) {
-        List<Post> posts = postService.getPostsNearCurrentUser(pageNum, pageSize, radius);
+                                         @RequestParam("radius") int radius,
+                                         @RequestParam(value = "includeOwn", required = false, defaultValue = "false") boolean getOwn) {
+        List<Post> posts = postService.getPostsNearCurrentUser(pageNum, pageSize, radius, getOwn);
         return posts.stream().map(PostBO::fromPost).collect(Collectors.toList());
     }
 

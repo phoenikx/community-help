@@ -45,13 +45,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostsNearCurrentUser(int pageNum, int pageSize, int distance) {
+    public List<Post> getPostsNearCurrentUser(int pageNum, int pageSize, int distance, boolean includeOwn) {
         String userId = userContextStore.getUserId();
         Optional<User> userOptional = userService.findByUserId(userId);
         if (userOptional.isPresent()) {
-            return postRepository.findByLocationNearAndPosterIdNot(
-                    new Point(userOptional.get().getHomeLocation()), userId , new Distance(distance),
-                    PageRequest.of(pageNum, pageSize));
+            if (includeOwn) {
+                return postRepository.findByLocationNear(
+                        new Point(userOptional.get().getHomeLocation()), new Distance(distance),
+                        PageRequest.of(pageNum, pageSize));
+            }
+            return postRepository.findByLocationNearAndPosterIdNot(new Point(userOptional.get().getHomeLocation()), userId,
+                    new Distance(distance), PageRequest.of(pageNum, pageSize));
         }
         return new ArrayList<>();
     }
