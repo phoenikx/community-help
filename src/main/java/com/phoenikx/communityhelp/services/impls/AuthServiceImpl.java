@@ -36,18 +36,11 @@ public class AuthServiceImpl implements AuthService {
 
         String phoneNumber = otpOptional.get().getPhoneNumber();
         Optional<User> userOptional = userService.findByUserId(phoneNumber);
-        if (!userOptional.isPresent()) {
-            User user = userService.createNewUser(phoneNumber, NEW_USER_NAME, DEFAULT_LOCATION);
-            String bearerToken = bearerTokenService.generateToken(user.getPhoneNumber(), user.getUserId());
-            return BearerTokenBO.builder()
-                    .newUser(true)
-                    .token(bearerToken)
-                    .build();
-        }
-        User user = userOptional.get();
+        User user = null;
+        user = userOptional.orElseGet(() -> userService.createNewUser(phoneNumber, NEW_USER_NAME, DEFAULT_LOCATION));
         String bearerToken = bearerTokenService.generateToken(user.getPhoneNumber(), user.getUserId());
         return BearerTokenBO.builder()
-                .newUser(false)
+                .detailsUpdated(user.isDetailsUpdated())
                 .token(bearerToken)
                 .build();
 

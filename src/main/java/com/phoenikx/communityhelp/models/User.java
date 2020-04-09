@@ -19,4 +19,5 @@ public class User extends BaseModel<String> {
     @Indexed(unique = true)
     private String phoneNumber;
     private GeoJsonPoint homeLocation;
+    private boolean detailsUpdated;
 }

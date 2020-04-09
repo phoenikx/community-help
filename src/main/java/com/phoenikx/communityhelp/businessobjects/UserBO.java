@@ -12,6 +12,7 @@ public class UserBO {
     private String userId;
     private String phoneNumber;
     private GeoJsonPoint homeLocation;
+    private boolean detailsUpdated;
 
     public static UserBO fromUser(User user) {
         return UserBO.builder()
@@ -19,6 +20,7 @@ public class UserBO {
                 .userId(user.getUserId())
                 .phoneNumber(user.getPhoneNumber())
                 .homeLocation(user.getHomeLocation())
+                .detailsUpdated(user.isDetailsUpdated())
                 .build();
     }
 }

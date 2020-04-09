@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
                 .userId(phoneNumber)
                 .phoneNumber(phoneNumber)
                 .homeLocation(new GeoJsonPoint(homeLocation.getX(), homeLocation.getY()))
+                .detailsUpdated(false)
                 .build();
         return userRepository.save(user);
     }

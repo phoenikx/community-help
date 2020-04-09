@@ -2,7 +2,6 @@ package com.phoenikx.communityhelp.services.apis;
 
 import com.phoenikx.communityhelp.models.User;
 import org.springframework.data.geo.Point;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
 import java.util.Optional;
 
