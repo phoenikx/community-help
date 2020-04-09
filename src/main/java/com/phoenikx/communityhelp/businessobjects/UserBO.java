@@ -2,9 +2,11 @@ package com.phoenikx.communityhelp.businessobjects;
 
 import com.phoenikx.communityhelp.models.User;
 import lombok.Builder;
+import lombok.Data;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
 @Builder
+@Data
 public class UserBO {
     private String name;
     private String userId;

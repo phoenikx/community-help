@@ -14,9 +14,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "users")
 public class User extends BaseModel<String> {
     @Id
-    private String id;
-    private String name;
     private String userId;
+    private String name;
     @Indexed(unique = true)
     private String phoneNumber;
     private GeoJsonPoint homeLocation;
