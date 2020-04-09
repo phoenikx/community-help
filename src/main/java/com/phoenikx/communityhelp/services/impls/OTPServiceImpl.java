@@ -55,6 +55,7 @@ public class OTPServiceImpl implements OTPService {
             return Optional.empty();
         }
         otp.setNumAttemptsDone(otp.getNumAttemptsDone()+1);
+        otp.setExpirationTime(-1);
         otpRepository.save(otp);
         return otpOptional;
     }
