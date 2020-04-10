@@ -1,62 +1,49 @@
 package com.phoenikx.communityhelp.services.impls;
 
-import com.phoenikx.communityhelp.businessobjects.BearerTokenBO;
-import com.phoenikx.communityhelp.exceptions.InvalidRequestException;
-import com.phoenikx.communityhelp.models.BearerToken;
-import com.phoenikx.communityhelp.models.OTP;
 import com.phoenikx.communityhelp.models.User;
 import com.phoenikx.communityhelp.repositories.UserRepository;
-import com.phoenikx.communityhelp.services.apis.BearerTokenService;
-import com.phoenikx.communityhelp.services.apis.OTPService;
 import com.phoenikx.communityhelp.services.apis.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired private OTPService otpService;
-    @Autowired private UserRepository userRepository;
-    @Autowired private BearerTokenService bearerTokenService;
+    @Autowired
+    private UserRepository userRepository;
 
-    private static final String NEW_USER_NAME = "User";
-
-    private User createNewUser(String phoneNumber, String userName) {
-        return User.builder()
+    @Override
+    public User createNewUser(String phoneNumber, String userName, Point homeLocation) {
+        User user = User.builder()
                 .name(userName)
+                .userId(phoneNumber)
                 .phoneNumber(phoneNumber)
+                .homeLocation(new GeoJsonPoint(homeLocation.getX(), homeLocation.getY()))
+                .detailsUpdated(false)
                 .build();
+        return userRepository.save(user);
     }
 
     @Override
-    public OTP initiateLogin(String phoneNumber, int otpLength) {
-        return otpService.generateOTP(phoneNumber, otpLength);
+    public Optional<User> findByUserId(String userId) {
+        return userRepository.findByPhoneNumber(userId);
     }
 
     @Override
-    public BearerTokenBO verifyLogin(String requestId, String otpCode) {
-        Optional<OTP> otpOptional = otpService.verifyOTP(requestId, otpCode);
-        if (!otpOptional.isPresent())
-            throw new InvalidRequestException("Invalid otp code.");
+    public Optional<User> updateUser(String userId, Point location, String name) {
+        Optional<User> userOptional = findByUserId(userId);
+        if (!userOptional.isPresent())
+            return Optional.empty();
 
-        String phoneNumber = otpOptional.get().getPhoneNumber();
-        Optional<User> userOptional = userRepository.findByPhoneNumber(phoneNumber);
-        if (!userOptional.isPresent()) {
-            User user = createNewUser(phoneNumber, NEW_USER_NAME);
-            userRepository.save(user);
-            String bearerToken = bearerTokenService.generateToken(user.getPhoneNumber(), user.getId());
-            return BearerTokenBO.builder()
-                    .newUser(true)
-                    .token(bearerToken)
-                    .build();
-        }
         User user = userOptional.get();
-        String bearerToken = bearerTokenService.generateToken(user.getPhoneNumber(), user.getId());
-        return BearerTokenBO.builder()
-                .newUser(false)
-                .token(bearerToken)
-                .build();
+        user.setHomeLocation(new GeoJsonPoint(location.getX(), location.getY()));
+        user.setName(name);
+        user.setDetailsUpdated(true);
+        userRepository.save(user);
 
+        return Optional.of(user);
     }
 }

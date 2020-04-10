@@ -20,7 +20,7 @@ public class BearerTokenServiceImpl implements BearerTokenService {
     private Key secretKey;
     private String issuer;
     private static final long TTL = TimeUnit.DAYS.toMillis(30);
-    private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.ES256;
+    private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
     public BearerTokenServiceImpl( @Value("${jwt.secret}") String secretKey,  @Value("${jwt.issuer}") String issuer) {
         this.issuer = issuer;
@@ -43,7 +43,7 @@ public class BearerTokenServiceImpl implements BearerTokenService {
     }
 
     @Override
-    public String verifyToken(String token) {
+    public String verifyTokenAndGetSubject(String token) {
         Claims claims;
         try {
             claims = Jwts.parser()

@@ -1,9 +1,14 @@
 package com.phoenikx.communityhelp.services.apis;
 
-import com.phoenikx.communityhelp.businessobjects.BearerTokenBO;
-import com.phoenikx.communityhelp.models.OTP;
+import com.phoenikx.communityhelp.models.User;
+import org.springframework.data.geo.Point;
+
+import java.util.Optional;
 
 public interface UserService {
-    OTP initiateLogin(String phoneNumber, int otpLength);
-    BearerTokenBO verifyLogin(String requestId, String otpCode);
+    Optional<User> updateUser(String userId, Point geoJsonPoint, String name);
+
+    User createNewUser(String phoneNumber, String userName, Point homeLocation);
+
+    Optional<User> findByUserId(String userId);
 }

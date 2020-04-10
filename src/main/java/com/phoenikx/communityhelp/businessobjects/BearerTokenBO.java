@@ -7,5 +7,5 @@ import lombok.Data;
 @Builder
 public class BearerTokenBO {
     private String token;
-    private boolean newUser;
+    private boolean detailsUpdated;
 }
