@@ -32,7 +32,12 @@ public class HelpOfferServiceImpl implements HelpOfferService {
     public HelpOffer createHelpOffer(String postId, String message) {
         String userId = userContextStore.getUserId();
         Optional<User> userOptional = userService.findByUserId(userId);
-        if (userOptional.isPresent()) {
+        Optional<Post> postOptional = postService.getPost(postId);
+        if (userOptional.isPresent() && postOptional.isPresent()) {
+            Post post = postOptional.get();
+            if (post.getPosterId().equals(userId)) {
+                throw new InvalidRequestException("Cannot offer help on your own post.");
+            }
             HelpOffer helpOffer = HelpOffer.builder()
                     .helper(userOptional.get())
                     .message(message)
