@@ -1,1 +1,1 @@
-java -jar -Xms512m -Xmx512m /opt/cogiv/cogiv.jar
+exec java -jar -Xms512m -Xmx512m /opt/cogiv/cogiv.jar
