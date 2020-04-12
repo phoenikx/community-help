@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class BearerTokenServiceImpl implements BearerTokenService {
     private Key secretKey;
     private String issuer;
-    private static final long TTL = TimeUnit.DAYS.toMillis(30);
+    private static final long TTL = TimeUnit.MINUTES.toMillis(1); // TODO: change it
     private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
     public BearerTokenServiceImpl(@Value("${jwt.secret}") String secretKey, @Value("${jwt.issuer}") String issuer) {
