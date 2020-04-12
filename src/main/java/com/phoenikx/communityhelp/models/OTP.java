@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "otps")
 @Data
 @Builder
-public class OTP extends BaseModel<String>{
+public class OTP extends BaseModel<String> {
     @Id
     private String id;
     @Indexed

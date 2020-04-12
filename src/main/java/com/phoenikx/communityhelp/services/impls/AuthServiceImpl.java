@@ -16,11 +16,14 @@ import java.util.Optional;
 
 @Service
 public class AuthServiceImpl implements AuthService {
-    @Autowired private OTPService otpService;
-    @Autowired private BearerTokenService bearerTokenService;
-    @Autowired private UserService userService;
+    @Autowired
+    private OTPService otpService;
+    @Autowired
+    private BearerTokenService bearerTokenService;
+    @Autowired
+    private UserService userService;
     private static final String NEW_USER_NAME = "User";
-    private static final Point DEFAULT_LOCATION = new Point(12.9716,77.5946);
+    private static final Point DEFAULT_LOCATION = new Point(12.9716, 77.5946);
 
 
     @Override

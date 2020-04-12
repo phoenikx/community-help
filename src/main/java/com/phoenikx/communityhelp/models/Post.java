@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document(collection = "posts")
 @Builder
-public class Post extends BaseModel<String>{
+public class Post extends BaseModel<String> {
     @Id
     private String id;
     @Indexed

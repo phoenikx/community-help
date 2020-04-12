@@ -22,10 +22,14 @@ import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
-    @Autowired private UserContextStore userContextStore;
-    @Autowired private PostRepository postRepository;
-    @Autowired private AuthService authService;
-    @Autowired private UserService userService;
+    @Autowired
+    private UserContextStore userContextStore;
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private AuthService authService;
+    @Autowired
+    private UserService userService;
 
     @Override
     public Post createPost(String title, String description, String fullAddress, String geoHash, double latitude,
@@ -70,7 +74,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getPostsOfLoggedInUser(int pageNum, int pageSize) {
         return postRepository.findByPosterId(userContextStore.getUserId(),
-                PageRequest.of(pageNum, pageSize, Sort.by(Sort.Direction.DESC,"createdAt")));
+                PageRequest.of(pageNum, pageSize, Sort.by(Sort.Direction.DESC, "createdAt")));
     }
 
 }

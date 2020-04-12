@@ -19,8 +19,8 @@ public class OTPServiceImpl implements OTPService {
     OTPRepository otpRepository;
 
     private String generateRandomCode(int length) {
-        long minNumber = (long)Math.pow(10, length-1);
-        long otpCode = minNumber + (long)(Math.random() * 9 * minNumber);
+        long minNumber = (long) Math.pow(10, length - 1);
+        long otpCode = minNumber + (long) (Math.random() * 9 * minNumber);
         return String.valueOf(otpCode);
     }
 
@@ -54,7 +54,7 @@ public class OTPServiceImpl implements OTPService {
                 || otp.getNumAttemptsDone() >= otp.getNumTriesAllowed() || !otp.getOtpCode().equals(otpCode)) {
             return Optional.empty();
         }
-        otp.setNumAttemptsDone(otp.getNumAttemptsDone()+1);
+        otp.setNumAttemptsDone(otp.getNumAttemptsDone() + 1);
         otp.setExpirationTime(-1);
         otpRepository.save(otp);
         return otpOptional;

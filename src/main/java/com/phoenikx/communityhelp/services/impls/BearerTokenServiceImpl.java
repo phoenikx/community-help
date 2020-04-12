@@ -22,10 +22,11 @@ public class BearerTokenServiceImpl implements BearerTokenService {
     private static final long TTL = TimeUnit.DAYS.toMillis(30);
     private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-    public BearerTokenServiceImpl( @Value("${jwt.secret}") String secretKey,  @Value("${jwt.issuer}") String issuer) {
+    public BearerTokenServiceImpl(@Value("${jwt.secret}") String secretKey, @Value("${jwt.issuer}") String issuer) {
         this.issuer = issuer;
         this.secretKey = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
+
     @Override
     public String generateToken(String phoneNumber, String userId) {
         long currentTimeMillis = System.currentTimeMillis();

@@ -14,8 +14,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserContextFilter implements Filter {
-    @Autowired private BearerTokenService bearerTokenService;
-    @Autowired private UserContextStore userContextStore;
+    @Autowired
+    private BearerTokenService bearerTokenService;
+    @Autowired
+    private UserContextStore userContextStore;
 
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private Pattern authorizationPattern = Pattern.compile("^Bearer (.*)");

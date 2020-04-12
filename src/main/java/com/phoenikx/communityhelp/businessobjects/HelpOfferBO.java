@@ -25,9 +25,9 @@ public class HelpOfferBO {
                 .helpId(help.getHelpId())
                 .message(help.getMessage())
                 .postId(help.getPostId())
-                .helperName(help.getHelper().getName())
-                .helperLocation(help.getHelper().getHomeLocation())
-                .helperPhoneNumber(help.getHelper().getPhoneNumber())
+                .helperName(help.getHelperName())
+                .helperLocation(help.getHelperLocation())
+                .helperPhoneNumber(help.getHelperPhoneNumber())
                 .build();
     }
 }

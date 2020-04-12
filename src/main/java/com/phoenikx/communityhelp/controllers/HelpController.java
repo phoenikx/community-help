@@ -17,7 +17,7 @@ public class HelpController {
     private HelpOfferService helpOfferService;
 
     @PostMapping
-    public HelpOfferBO offerHelp(@RequestBody HelpOfferCreateRequest request){
+    public HelpOfferBO offerHelp(@RequestBody HelpOfferCreateRequest request) {
         HelpOffer helpOffer = helpOfferService.createHelpOffer(request.getPostId(), request.getMessage());
         return HelpOfferBO.fromHelpOffer(helpOffer);
     }

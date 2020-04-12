@@ -23,7 +23,8 @@ import java.util.regex.Pattern;
 @Slf4j
 public class AuthController {
     Pattern pattern = Pattern.compile("^[6-9]\\d{9}$");
-    @Autowired private AuthService authService;
+    @Autowired
+    private AuthService authService;
 
     private void validatePhoneNumber(String phoneNumber) {
         if (!pattern.matcher(phoneNumber).matches())

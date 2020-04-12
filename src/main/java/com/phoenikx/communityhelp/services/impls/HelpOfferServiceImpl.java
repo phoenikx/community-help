@@ -19,10 +19,14 @@ import java.util.Optional;
 
 @Service
 public class HelpOfferServiceImpl implements HelpOfferService {
-    @Autowired private UserContextStore userContextStore;
-    @Autowired private UserService userService;
-    @Autowired private PostService postService;
-    @Autowired private HelpOfferRepository helpOfferRepository;
+    @Autowired
+    private UserContextStore userContextStore;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PostService postService;
+    @Autowired
+    private HelpOfferRepository helpOfferRepository;
 
     private boolean isOwnerOfPost(Post post, String userId) {
         return post.getPosterId().equals(userId);
@@ -39,7 +43,10 @@ public class HelpOfferServiceImpl implements HelpOfferService {
                 throw new InvalidRequestException("Cannot offer help on your own post.");
             }
             HelpOffer helpOffer = HelpOffer.builder()
-                    .helper(userOptional.get())
+                    .helperLocation(userOptional.get().getHomeLocation())
+                    .helperPhoneNumber(userOptional.get().getPhoneNumber())
+                    .helperName(userOptional.get().getName())
+                    .helperId(userOptional.get().getUserId())
                     .message(message)
                     .postId(postId)
                     .build();

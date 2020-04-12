@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class UserUpdateRequest {
-    @NotNull private String name;
-    @NotNull private Point homeLocation;
+    @NotNull
+    private String name;
+    @NotNull
+    private Point homeLocation;
 }

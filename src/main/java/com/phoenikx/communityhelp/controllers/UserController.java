@@ -17,8 +17,10 @@ import java.util.Optional;
 @RequestMapping(path = "users", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class UserController {
-    @Autowired private UserService userService;
-    @Autowired private UserContextStore userContextStore;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UserContextStore userContextStore;
 
     @PutMapping
     public UserBO updateUser(@RequestBody UserUpdateRequest request) {
