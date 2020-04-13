@@ -47,6 +47,7 @@ public class UserContextFilter implements Filter {
         try {
             String userId = bearerTokenService.verifyTokenAndGetSubject(tokenOptional.get());
             this.userContextStore.setUserId(userId);
+            filterChain.doFilter(servletRequest, servletResponse);
         } catch (AuthenticationException ex) {
             response.sendError(HttpStatus.UNAUTHORIZED.value());
         } finally {
