@@ -1,11 +1,11 @@
 package com.phoenikx.communityhelp.config;
 
+import com.phoenikx.communityhelp.exceptions.AuthenticationException;
 import com.phoenikx.communityhelp.services.apis.BearerTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 
-import javax.security.sasl.AuthenticationException;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,11 +47,9 @@ public class UserContextFilter implements Filter {
         try {
             String userId = bearerTokenService.verifyTokenAndGetSubject(tokenOptional.get());
             this.userContextStore.setUserId(userId);
-            filterChain.doFilter(servletRequest, servletResponse);
         } catch (AuthenticationException ex) {
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        }
-        finally {
+            response.sendError(HttpStatus.UNAUTHORIZED.value());
+        } finally {
             this.userContextStore.clear();
         }
     }
