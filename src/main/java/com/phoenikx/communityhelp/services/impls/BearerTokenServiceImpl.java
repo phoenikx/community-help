@@ -1,5 +1,6 @@
 package com.phoenikx.communityhelp.services.impls;
 
+import com.phoenikx.communityhelp.exceptions.AuthenticationException;
 import com.phoenikx.communityhelp.exceptions.InvalidRequestException;
 import com.phoenikx.communityhelp.services.apis.BearerTokenService;
 import io.jsonwebtoken.Claims;
@@ -51,7 +52,7 @@ public class BearerTokenServiceImpl implements BearerTokenService {
                     .setSigningKey(secretKey)
                     .parseClaimsJws(token).getBody();
         } catch (Exception ex) {
-            throw new InvalidRequestException("Invalid token."); //signature not verified
+            throw new AuthenticationException("Invalid token."); //signature not verified
         }
         return claims.getSubject();
     }
