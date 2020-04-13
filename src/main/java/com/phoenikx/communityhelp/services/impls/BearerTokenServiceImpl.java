@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class BearerTokenServiceImpl implements BearerTokenService {
     private Key secretKey;
     private String issuer;
-    private static final long TTL = TimeUnit.MINUTES.toMillis(1); // TODO: change it
+    private static final long TTL = TimeUnit.DAYS.toMillis(7);
     private static final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
     @Autowired private BearerTokenRepository bearerTokenRepository;
 
