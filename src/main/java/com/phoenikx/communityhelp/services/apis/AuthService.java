@@ -7,4 +7,6 @@ public interface AuthService {
     OTP initiateLogin(String phoneNumber, int otpLength);
 
     BearerTokenBO verifyLogin(String requestId, String otpCode);
+
+    boolean logout(String token);
 }

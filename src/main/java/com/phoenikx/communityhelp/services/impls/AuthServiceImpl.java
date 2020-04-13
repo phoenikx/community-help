@@ -48,4 +48,9 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
     }
+
+    @Override
+    public boolean logout(String token) {
+        return bearerTokenService.invalidateToken(token);
+    }
 }
