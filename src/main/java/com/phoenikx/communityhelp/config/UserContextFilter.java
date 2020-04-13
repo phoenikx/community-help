@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 
+import javax.security.sasl.AuthenticationException;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,7 +48,10 @@ public class UserContextFilter implements Filter {
             String userId = bearerTokenService.verifyTokenAndGetSubject(tokenOptional.get());
             this.userContextStore.setUserId(userId);
             filterChain.doFilter(servletRequest, servletResponse);
-        } finally {
+        } catch (AuthenticationException ex) {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        }
+        finally {
             this.userContextStore.clear();
         }
     }
