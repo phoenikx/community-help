@@ -1,7 +1,5 @@
 FROM openjdk:7
 WORKDIR /opt/cogiv
-RUN apt-get install vim tar wget
-
 COPY target/cogiv.jar /opt/cogiv
 COPY deployment/application.yml /opt/cogiv
 COPY deployment/start_process.sh /opt/cogiv
