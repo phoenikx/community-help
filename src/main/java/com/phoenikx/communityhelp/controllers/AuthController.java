@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @RequestMapping(path = "auth", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class AuthController {
-    Pattern pattern = Pattern.compile("^[6-9]\\d{9}$");
+    Pattern pattern = Pattern.compile("^\\+91[6-9]\\d{9}$");
     @Autowired
     private AuthService authService;
 

@@ -4,31 +4,34 @@ import com.phoenikx.communityhelp.businessobjects.BearerTokenBO;
 import com.phoenikx.communityhelp.exceptions.InvalidRequestException;
 import com.phoenikx.communityhelp.models.OTP;
 import com.phoenikx.communityhelp.models.User;
-import com.phoenikx.communityhelp.services.apis.AuthService;
-import com.phoenikx.communityhelp.services.apis.BearerTokenService;
-import com.phoenikx.communityhelp.services.apis.OTPService;
-import com.phoenikx.communityhelp.services.apis.UserService;
+import com.phoenikx.communityhelp.services.apis.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class AuthServiceImpl implements AuthService {
-    @Autowired
-    private OTPService otpService;
-    @Autowired
-    private BearerTokenService bearerTokenService;
-    @Autowired
-    private UserService userService;
+    @Autowired private OTPService otpService;
+    @Autowired private BearerTokenService bearerTokenService;
+    @Autowired private UserService userService;
+    @Autowired private SMSService smsService;
+
+    @Value("${otp-verification-template}") private String otpVerificationTemplate;
     private static final String NEW_USER_NAME = "User";
     private static final Point DEFAULT_LOCATION = new Point(12.9716, 77.5946);
 
 
     @Override
     public OTP initiateLogin(String phoneNumber, int otpLength) {
-        return otpService.generateOTP(phoneNumber, otpLength);
+        OTP otp = otpService.generateOTP(phoneNumber, otpLength);
+        String requestId = smsService.sendSMS(phoneNumber, String.format(otpVerificationTemplate, otp.getOtpCode()));
+        log.info("Sent sms to phone-number: {}, request id: {}", phoneNumber, requestId);
+        return otp;
     }
 
     @Override

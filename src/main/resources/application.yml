@@ -4,6 +4,12 @@ spring:
     mongodb:
       uri: "mongodb://localhost:27017/community_help"
 
+otp-verification-template: "Your CoGiv verification code is %s"
+
+sns:
+  accessKey: 'abcde'
+  secretKey: 'abcde'
+
 logging:
   level:
     org:
