@@ -1,0 +1,14 @@
+version: '1.0'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - "spring_data_mongodb_uri=${spring_data_mongodb_uri}"
+      - "sns_accessKey=${sns_accessKey}"
+      - "sns_secretKey=${sns_secretKey}"
+      - "jwt_issuer=${jwt_issuer}"
+      - "jwt_secret=${jwt_secret}"
+      - "logging_level_org_springframework_web=INFO"
+      - "logging_level_org_springframework_data_mongodb_core_MongoTemplate=INFO"

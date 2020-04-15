@@ -44,6 +44,9 @@ public class AuthController {
 
     @PostMapping(path = "/logout")
     public boolean logout(@RequestHeader("Authorization") String token) {
-        return authService.logout(token);
+        String[] tokenParts = token.split(" ");
+        if (tokenParts.length !=2)
+            throw new InvalidRequestException("Invalid token format");
+        return authService.logout(tokenParts[1]);
     }
 }
