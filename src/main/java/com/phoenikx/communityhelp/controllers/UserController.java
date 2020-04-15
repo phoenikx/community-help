@@ -16,6 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "users", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
+@CrossOrigin
 public class UserController {
     @Autowired
     private UserService userService;

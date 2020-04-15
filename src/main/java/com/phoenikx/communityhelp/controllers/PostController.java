@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "posts", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin
 public class PostController {
     @Autowired
     PostService postService;
