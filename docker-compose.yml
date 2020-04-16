@@ -2,7 +2,7 @@ version: '3.3'
 services:
   app:
     build:
-      context: ..
+      context: ""
       dockerfile: Dockerfile
     environment:
       - "spring_data_mongodb_uri=${spring_data_mongodb_uri}"
