@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Value("${otp-verification-template}") private String otpVerificationTemplate;
     private static final String NEW_USER_NAME = "User";
-    private static final Point DEFAULT_LOCATION = new Point(12.9716, 77.5946);
+    private static final Point DEFAULT_LOCATION = new Point(77.5946, 12.9716);
 
 
     @Override
@@ -42,8 +42,7 @@ public class AuthServiceImpl implements AuthService {
 
         String phoneNumber = otpOptional.get().getPhoneNumber();
         Optional<User> userOptional = userService.findByUserId(phoneNumber);
-        User user = null;
-        user = userOptional.orElseGet(() -> userService.createNewUser(phoneNumber, NEW_USER_NAME, DEFAULT_LOCATION));
+        User user = userOptional.orElseGet(() -> userService.createNewUser(phoneNumber, NEW_USER_NAME, DEFAULT_LOCATION));
         String bearerToken = bearerTokenService.generateToken(user.getPhoneNumber(), user.getUserId());
         return BearerTokenBO.builder()
                 .detailsUpdated(user.isDetailsUpdated())
