@@ -1,0 +1,12 @@
+connector:
+  name: newdocker
+  identifier: newdocker
+  description:
+  orgIdentifier: default
+  projectIdentifier: nik
+  type: DockerRegistry
+  spec:
+    dockerRegistryUrl: dsdsdsd
+    providerType: DockerHub
+    auth:
+      type: Anonymous
