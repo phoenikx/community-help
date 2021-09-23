@@ -1,0 +1,12 @@
+connector:
+  name: fsfdfdf
+  identifier: fsfdfdf
+  description:
+  orgIdentifier: default
+  projectIdentifier: hello_world
+  type: DockerRegistry
+  spec:
+    dockerRegistryUrl: fdfdfd
+    providerType: DockerHub
+    auth:
+      type: Anonymous
