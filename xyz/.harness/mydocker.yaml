@@ -1,0 +1,12 @@
+connector:
+  name: mydocker
+  identifier: mydocker
+  description:
+  orgIdentifier: default
+  projectIdentifier: mynewproject
+  type: DockerRegistry
+  spec:
+    dockerRegistryUrl: dmaskdmasd
+    providerType: DockerHub
+    auth:
+      type: Anonymous
