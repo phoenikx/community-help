@@ -1,0 +1,12 @@
+connector:
+  name: hello world
+  identifier: hello_world
+  description:
+  orgIdentifier: default
+  projectIdentifier: extremelyspecialproject
+  type: DockerRegistry
+  spec:
+    dockerRegistryUrl: dsdsdsd
+    providerType: DockerHub
+    auth:
+      type: Anonymous
