@@ -1,0 +1,12 @@
+connector:
+  name: dsdsd
+  identifier: dsdsd
+  description:
+  orgIdentifier: default
+  projectIdentifier: nik
+  type: DockerRegistry
+  spec:
+    dockerRegistryUrl: dsdsds
+    providerType: DockerHub
+    auth:
+      type: Anonymous
