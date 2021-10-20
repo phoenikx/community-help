@@ -1,7 +1,7 @@
 connector:
   name: hello world
   identifier: hello_world
-  description:
+  description: hello world
   orgIdentifier: default
   projectIdentifier: extremelyspecialproject
   type: DockerRegistry
