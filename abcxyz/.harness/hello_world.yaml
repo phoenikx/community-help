@@ -3,7 +3,7 @@ connector:
   identifier: hello_world
   description: hello world
   orgIdentifier: default
-  projectIdentifier: extremelyspecialproject
+  projectIdntifier: extremelyspecialproject
   type: DockerRegistry
   spec:
     dockerRegistryUrl: dsdsdsd
