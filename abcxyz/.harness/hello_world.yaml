@@ -4,7 +4,7 @@ connector:
   description: hello world
   orgIdentifier: default
   projectIdentifier: extremelyspecialproject
-  type: DockerRegistry12345
+  type: DockerRegistry123455
   spec:
     dockerRegistryUrl: dsdsdsd
     providerType: DockerHub
