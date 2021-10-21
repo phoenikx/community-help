@@ -3,8 +3,8 @@ connector:
   identifier: hello_world
   description: hello world123
   orgIdentifier: default
-  projecttifier: extremelyspecialproject
-  type: DockerRegistry
+  projectIdentifier: extremelyspecialproject
+  type: DockerRegistry123
   spec:
     dockerRegistryUrl: dsdsdsd
     providerType: DockerHub
