@@ -1,6 +1,6 @@
 connector:
   name: hello nnnnnnnnnnnnnnnnnnnnnnnnnnnnn
-  identifer: hello_world
+  identifier: hello_world
   description: hello world123
   orgIdentifier: default
   projectIdentifier: extremelyspecialproject
