@@ -1,7 +1,7 @@
 connector:
   name: hello world naksfnskfs  fndjfknsdkfnddn djaslkdjsalkdsldls dnaskldsdnsklnd dnsakdnsakdnskdns dnaskdnsakndksandksand ndasndksandksandk nsakdnskdnksandklsndks
   identifier: hello_world
-  description: hello world 122 12345 dadsds
+  description: hello world 122 12345 dadsds ddsd
   orgIdentifier: default
   projectIdentifier: extremelyspecialproject
   type: DockerRegistry
