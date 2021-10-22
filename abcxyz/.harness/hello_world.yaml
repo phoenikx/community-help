@@ -1,7 +1,7 @@
 conneor:
   name: hello nnnnnnndsdnnnnnnnndsdsdnnnnnndsdsnnnnnwwnnndsds
   identifier: hello_world
-  description: hello world 123
+  description: hello world 123 456 909
   orgIdentifier: default
   projectIdentifier: extremelyspecialproject
   type: DockerRegistry
