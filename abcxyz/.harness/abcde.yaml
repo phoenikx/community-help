@@ -1,0 +1,12 @@
+connector:
+  name: abcde
+  identifier: abcde
+  description:
+  orgIdentifier: default
+  projectIdentifier: testdelegatelessbranchget
+  type: DockerRegistry
+  spec:
+    dockerRegistryUrl: abc.com
+    providerType: DockerHub
+    auth:
+      type: Anonymous
