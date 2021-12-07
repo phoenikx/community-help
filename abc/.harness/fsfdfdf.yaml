@@ -7,6 +7,6 @@ connector:
   type: DockerRegistry
   spec:
     dockerRegistryUrl: fdfdfd
-    providerType: DockerHub
+    providerType: DockerHub1
     auth:
       type: Anonymous
