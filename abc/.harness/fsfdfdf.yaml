@@ -9,4 +9,4 @@ connector:
     dockerRegistryUrl: fdfdfd
     providerType: DockerHub
     auth:
-      type: Anonymous
+      type: Anonymous1
