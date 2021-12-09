@@ -1,5 +1,5 @@
 connector:
-  name: mydocker1234567
+  name: docker-docker
   identifier: mydocker
   description:
   orgIdentifier: default
