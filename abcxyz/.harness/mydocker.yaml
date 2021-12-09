@@ -1,0 +1,12 @@
+connector:
+  name: mydocker
+  identifier: mydocker
+  description:
+  orgIdentifier: default
+  projectIdentifier: sshgittesting
+  type: DockerRegistry
+  spec:
+    dockerRegistryUrl: abc.com
+    providerType: DockerHub
+    auth:
+      type: Anonymous
