@@ -1,7 +1,7 @@
 connector:
   name: newdocker
   identifier: newdocker
-  description: this is my docker connector, and it is a good connector
+  description: this is my docker connector, and it is a good connector, 123
   orgIdentifier: default
   projectIdentifier: nik
   type: DockerRegistry
