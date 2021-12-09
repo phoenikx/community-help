@@ -1,5 +1,5 @@
 connector:
-  name: mydockeralpha
+  name: mydockeralphabetagamma
   identifier: mydocker
   description:
   orgIdentifier: default
