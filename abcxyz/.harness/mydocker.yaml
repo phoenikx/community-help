@@ -1,6 +1,6 @@
 connector:
   name: docker-docker
-  identifier: mydocker1234567
+  identifier: mydocker12345679101112131415
   description:
   orgIdentifier: default
   projectIdentifier: sshgittesting
